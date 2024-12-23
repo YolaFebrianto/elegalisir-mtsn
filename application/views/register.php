@@ -22,12 +22,12 @@
 			padding:6px 12px;
 			font-size:14px;
 		}
-		.login-page{
+		/*.login-page{
 			background: #D0FED0;
-		}
+		}*/
         .bg::before {
             content: '';
-            background-image: url('./template/dist/img/background.jpg');
+            background-image: url("<?=base_url();?>template/dist/img/background.jpg");
             background-repeat: no-repeat;
             background-size: cover;
             background-attachment: fixed;
@@ -58,19 +58,21 @@
 					<span class="glyphicon glyphicon-user form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
-					<input type="password" name="password" class="form-control" placeholder="Password" required="">
+					<input type="password" name="password" class="form-control" placeholder="Password">
 					<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+					<span class="help-block text-muted">Jika dikosongi, passwordnya 12345</span>
 				</div>
 				<div class="form-group has-feedback">
-					<input type="password" name="password2" class="form-control" placeholder="Ulangi Password" required="">
+					<input type="password" name="password2" class="form-control" placeholder="Ulangi Password">
 					<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+					<span class="help-block text-muted">Jika dikosongi, passwordnya 12345</span>
 				</div>
 				<div class="form-group has-feedback">
 					<input type="text" name="nama" class="form-control" placeholder="Nama" required="" value="<?php echo $this->session->flashdata('nama_register'); ?>">
 					<span class="glyphicon glyphicon-tags form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
-					<input type="text" name="nisn" class="form-control" placeholder="NISN" value="<?php echo $this->session->flashdata('nisn_register'); ?>">
+					<input type="text" name="nisn" class="form-control" placeholder="NISN (*Optional)" value="<?php echo $this->session->flashdata('nisn_register'); ?>">
 					<span class="glyphicon glyphicon-qrcode form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
@@ -81,12 +83,7 @@
 					<input type="text" name="kontak" class="form-control" placeholder="No. HP" required="" value="<?php echo $this->session->flashdata('kontak_register'); ?>">
 					<span class="glyphicon glyphicon-phone form-control-feedback"></span>
 				</div>
-				<div class="row">
-					<div class="col-xs-8"></div>
-					<div class="col-xs-4">
-						<input type="submit" name="btnregister" class="btn btn-success btn-block btn-flat" value="Daftar">
-					</div>
-				</div>
+				<input type="submit" name="btnregister" class="btn btn-success btn-block btn-flat" value="DAFTAR">
 			<?= form_close(); ?>	
 			<br>
 			<div class="social-auth-links text-center">
@@ -96,7 +93,7 @@
 				</p>
 				<?php endif; ?>
 			</div>
-			<a href="<?php echo base_url('auth/login'); ?>" class="mb-0 text-center" style="display: block;line-height: 1.5;">
+			<a href="<?php echo base_url('auth/login'); ?>" class="btn btn-primary btn-block btn-flat" style="display: block;">
 				LOGIN
 			</a>
 			<br>

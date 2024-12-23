@@ -33,7 +33,7 @@
 		}*/
         .bg::before {
             content: '';
-            background-image: url('./template/dist/img/background.jpg');
+            background-image: url("<?=base_url();?>template/dist/img/background.jpg");
             background-repeat: no-repeat;
             background-size: cover;
             background-attachment: fixed;
@@ -68,12 +68,7 @@
 					<input type="password" name="password" class="form-control" placeholder="Password" required>
 					<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 				</div>
-				<div class="row">
-					<div class="col-xs-8"></div>
-					<div class="col-xs-4">
-						<input type="submit" name="btnlogin" class="btn btn-primary btn-block btn-flat" value="Sign In">
-					</div>
-				</div>
+				<input type="submit" name="btnlogin" class="btn btn-success btn-block btn-flat" value="LOGIN">
 			<?= form_close(); ?>	
 			<br>
 			<div class="social-auth-links text-center">
@@ -88,7 +83,7 @@
 				</p>
 				<?php endif; ?>
 			</div>
-			<a href="<?php echo base_url('auth/register'); ?>" class="mb-0 text-center" style="display: block;line-height: 1.5;">
+			<a href="<?php echo base_url('auth/register'); ?>" class="btn btn-primary btn-block btn-flat" style="display: block;">
 				DAFTAR
 			</a>
 			<br>

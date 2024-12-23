@@ -18,7 +18,7 @@
       <div class="box">
         <div class="box-header">
           <a href="<?=base_url('user/form_add');?>" class="btn btn-success btn-flat">
-            <span class="fa fa-plus"></span> Add User
+            <span class="fa fa-plus"></span> Tambah User
           </a> 
         </div>
         <!-- /.box-header -->

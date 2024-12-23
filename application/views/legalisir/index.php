@@ -18,7 +18,7 @@
       <div class="box">
         <div class="box-header">
           <a href="<?=base_url('legalisir/form_add');?>" class="btn btn-success btn-flat">
-            <span class="fa fa-plus"></span> Add Legalisir
+            <span class="fa fa-plus"></span> Tambah Legalisir
           </a> 
         </div>
         <!-- /.box-header -->
@@ -32,6 +32,7 @@
                   <th>NISN</th>
                   <th>No. Ijazah</th>
                   <th>Tahun Lulus</th>
+                  <th>Jumlah</th>
                   <th>Status</th>
                   <th>File</th>
                   <th>File Legalisir</th>

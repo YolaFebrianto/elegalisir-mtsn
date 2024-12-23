@@ -14,7 +14,7 @@
 	<div class="box box-primary">
 		<div class="box-body">
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
+				<div class="col-md-6">
 				<?= form_open_multipart('legalisir/add'); ?>
 					<div class="form-group">
 						<label>NIK :</label>
@@ -33,21 +33,38 @@
 						<input type="number" name="tahun_lulus" class="form-control" required min="0">
 					</div>
 					<div class="form-group">
-						<label>Pengambilan :</label>
-						<select name="pengambilan" class="form-control">
-							<option value="0" selected="">Ambil Sendiri</option>
-							<option value="1">Soft File</option>
+						<label>Pengurusan :</label>
+						<select name="pengambilan" class="form-control" id="input-pengambilan">
+							<option value="" selected="" disabled="">-- Pilih --</option>
+							<option value="0">Offline</option>
+							<option value="1">Online</option>
 						</select>
 					</div>
 					<div class="form-group">
+						<label>Jumlah Lembar Legalisir :</label>
+						<input type="number" min="1" name="jumlah_legalisir" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Alasan Kebutuhan Legalisir :</label>
+						<textarea name="alasan" class="form-control" rows="3" required=""></textarea>
+					</div>
+					<div class="form-group" id="div-upload">
 						<label>File :</label>
-						<input type="file" name="filelegal" class="form-control" required="" />
+						<input type="file" name="filelegal" class="form-control" id="input-filelegal" />
 					</div>
 					<a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal">
 						Simpan
 					</a>
 					<input type="submit" name="tambah" value="Simpan" class="btn btn-success" id="btnSubmit" style="display: none;">
 				<?= form_close(); ?>
+				</div>
+				<div class="col-md-6">
+					<h2>Ketentuan Legalisir Ijazah</h2>
+					<ol>
+						<li>File yang akan diunggah dalam format file jpg/jpeg dengan kualitas baik</li>
+						<li>Ukuran file tidak melebihi 8 megabyte dan disarankan menggunakan mesin scan.</li>
+						<li>File ijazah di scan dalam bentuk landscape, posisi logo ada diatas.</li>
+					</ol>
 				</div>
 			</div>
 		</div>
@@ -83,8 +100,23 @@
 		</div>
 	</div>
 </div>
+<!-- jQuery 2.2.3 -->
+<script src="<?=base_url();?>template/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script type="text/javascript">
 	function kirim(){
 		$('#btnSubmit').click();
 	}
+	$(document).ready(function(){
+		$('#div-upload').hide();
+		$('#input-pengambilan').change(function(){
+			var isi = $(this).val();
+			if (isi==1) {
+				$('#div-upload').show();
+				$('#input-filelegal').attr('required', 'required');
+			} else {
+				$('#div-upload').hide();
+				$('#input-filelegal').removeAttr('required');
+			}
+		});
+	});
 </script>

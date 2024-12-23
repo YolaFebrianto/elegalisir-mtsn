@@ -15,7 +15,7 @@
 	<div class="box box-primary">
 		<div class="box-body">
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
+				<div class="col-md-6">
 				<?= form_open_multipart('legalisir/edit'); ?>
 					<input type="hidden" name="id_legal" value="<?=$edit['id_legal'];?>">
 					<div class="form-group">
@@ -35,13 +35,21 @@
 						<input type="number" name="tahun_lulus" class="form-control" value="<?=$edit['tahun_lulus'];?>" required min="0">
 					</div>
 					<div class="form-group">
-						<label>Pengambilan :</label>
-						<select name="pengambilan" class="form-control">
-							<option value="0" <?=($edit['pengambilan']==0)?'selected':'';?>>Ambil Sendiri</option>
-							<option value="1" <?=($edit['pengambilan']==1)?'selected':'';?>>Soft File</option>
+						<label>Pengurusan :</label>
+						<select name="pengambilan" class="form-control" id="input-pengambilan">
+							<option value="0" <?=($edit['pengambilan']==0)?'selected':'';?>>Offline</option>
+							<option value="1" <?=($edit['pengambilan']==1)?'selected':'';?>>Online</option>
 						</select>
 					</div>
 					<div class="form-group">
+						<label>Jumlah Lembar Legalisir :</label>
+						<input type="number" min="1" name="jumlah_legalisir" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Alasan Kebutuhan Legalisir :</label>
+						<textarea name="alasan" class="form-control" rows="3" required=""></textarea>
+					</div>
+					<div class="form-group" id="div-upload">
 						<label>File :
 						<?php
 							if (!empty(@$edit['file'])) {
@@ -49,13 +57,21 @@
 							}
 						?>
 						</label>
-						<input type="file" name="filelegal" class="form-control" />
+						<input type="file" name="filelegal" class="form-control" id="input-filelegal" />
 					</div>
 					<a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal">
 						Simpan
 					</a>
 					<input type="submit" name="update" value="Simpan" class="btn btn-success" id="btnSubmit" style="display: none;">
 				<?= form_close(); ?>
+				</div>
+				<div class="col-md-6">
+					<h2>Ketentuan Legalisir Ijazah</h2>
+					<ol>
+						<li>File yang akan diunggah dalam format file jpg/jpeg dengan kualitas baik</li>
+						<li>Ukuran file tidak melebihi 8 megabyte dan disarankan menggunakan mesin scan.</li>
+						<li>File ijazah di scan dalam bentuk landscape, posisi logo ada diatas.</li>
+					</ol>
 				</div>
 			</div>
 		</div>
@@ -91,8 +107,24 @@
 		</div>
 	</div>
 </div>
+<!-- jQuery 2.2.3 -->
+<script src="<?=base_url();?>template/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script type="text/javascript">
 	function kirim(){
 		$('#btnSubmit').click();
 	}
+	$(document).ready(function(){
+		$('#div-upload').hide();
+		<?php if ((@$edit['pengambilan']==1)): ?>
+		$('#div-upload').show();
+		<?php endif; ?>
+		$('#input-pengambilan').change(function(){
+			var isi = $(this).val();
+			if (isi==1) {
+				$('#div-upload').show();
+			} else {
+				$('#div-upload').hide();
+			}
+		});
+	});
 </script>

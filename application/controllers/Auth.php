@@ -62,6 +62,11 @@ class Auth extends CI_Controller {
         $konfirm_password=$this->input->post('password2');
         $email=$this->input->post('email');
         $nohp=$this->input->post('kontak');
+        $password_default = '12345';
+        if (empty($password)) {
+        	$password = $password_default;
+        	$konfirm_password = $password_default;
+        }
         $level=2;
         if ($password <> $konfirm_password) {
             $this->session->set_flashdata('error','Password dan Password Konfirmasi Tidak Sama!');

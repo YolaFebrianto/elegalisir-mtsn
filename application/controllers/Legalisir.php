@@ -42,6 +42,7 @@ class Legalisir extends CI_Controller{
 					$this->db->or_like('nisn', $cari);
 					$this->db->or_like('no_ijazah', $cari);
 					$this->db->or_like('tahun_lulus', $cari);
+					$this->db->or_like('jumlah_legalisir', $cari);
 					$this->db->group_end();
 				}
 				// Level 0: Tetap filter berdasarkan nip
@@ -51,6 +52,7 @@ class Legalisir extends CI_Controller{
 					$this->db->or_like('nisn', $cari);
 					$this->db->or_like('no_ijazah', $cari);
 					$this->db->or_like('tahun_lulus', $cari);
+					$this->db->or_like('jumlah_legalisir', $cari);
 					$this->db->group_end(); // Akhiri grouping
 					$this->db->where('nik', $nik); // Pastikan `nip` tetap digunakan
 				}
@@ -59,7 +61,7 @@ class Legalisir extends CI_Controller{
 					$this->db->where(['nik'=>$nik]);
 				}
 			}
-			$column_order = ['id_legal', 'nik', 'nisn', 'no_ijazah', 'tahun_lulus', 'status'];
+			$column_order = ['id_legal', 'nik', 'nisn', 'no_ijazah', 'tahun_lulus', 'jumlah_legalisir','status'];
 			if(isset($_POST["order"]))
 			{
 				$order_column = $column_order[$_POST['order']['0']['column']];
@@ -122,6 +124,7 @@ class Legalisir extends CI_Controller{
 					$sub_array[] = $row['nisn'];
 					$sub_array[] = $row['no_ijazah'];
 					$sub_array[] = $row['tahun_lulus'];
+					$sub_array[] = $row['jumlah_legalisir'];
 					$sub_array[] = $status_teks;
 					$sub_array[] = $file_link;
 					$sub_array[] = $filelegal_link;
@@ -218,17 +221,20 @@ class Legalisir extends CI_Controller{
 			'no_ijazah'     => $this->input->post('no_ijazah'),
 			'tahun_lulus'   => $this->input->post('tahun_lulus'),
 			'status'        => 0,
-			'pengambilan'   => $this->input->post('pengambilan')
+			'pengambilan'   => $this->input->post('pengambilan'),
+			'jumlah_legalisir'=> $this->input->post('jumlah_legalisir'),
+			'alasan'		=> $this->input->post('alasan')
 		];
 		if (!empty(@$_FILES['filelegal']['name'])) {
 			$uploads_name = $this->do_upload('filelegal',$nik.'_'.$datenow);
 			if (!empty($uploads_name)) {
 				$data['file'] = $uploads_name;
 			}
-		} else {
-			$this->session->set_flashdata('error','Harap upload file yang akan di legalisir!');
-			redirect('legalisir/form_add');
 		}
+		// else {
+		// 	$this->session->set_flashdata('error','Harap upload file yang akan di legalisir!');
+		// 	redirect('legalisir/form_add');
+		// }
 		try {
 			$this->LegalisirProvider->insert($data);
 			$this->session->set_flashdata('info','Data Berhasil Ditambahkan!');
@@ -254,7 +260,9 @@ class Legalisir extends CI_Controller{
 			'nisn'          => $this->input->post('nisn'),
 			'no_ijazah'     => $this->input->post('no_ijazah'),
 			'tahun_lulus'   => $this->input->post('tahun_lulus'),
-			'pengambilan'   => $this->input->post('pengambilan')
+			'pengambilan'   => $this->input->post('pengambilan'),
+			'jumlah_legalisir'=> $this->input->post('jumlah_legalisir'),
+			'alasan'		=> $this->input->post('alasan')
 		];
 		if (!empty(@$_FILES['filelegal']['name'])) {
 			$uploads_name = $this->do_upload('filelegal',$nik.'_'.$datenow);
@@ -346,8 +354,8 @@ class Legalisir extends CI_Controller{
 			mkdir($config['upload_path'], 0777, TRUE);
 		}
 
-		$config['allowed_types'] = 'pdf';
-		$config['max_size'] = 8000;
+		$config['allowed_types'] = 'jpeg|jpg';
+		$config['max_size'] = 8192;
 		$config['file_name'] = $fileName;
 		$this->upload->initialize($config);
 
